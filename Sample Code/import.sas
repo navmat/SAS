@@ -2,7 +2,7 @@
 %macro import_xlsx(dataset,folder,filename,sheet);
    proc import
       out= &dataset.
-      datafile = '&importdir.\&folder.\&filename..xlsx'
+      datafile = "&importdir.\&folder.\&filename..xlsx"
       dbms = excelcs replace;   
       sheet = &sheet.; /*Can also use, range = "&range.$";*/
       scantext = yes;
@@ -10,6 +10,8 @@
       scantime = yes;
    run;
 %mend;
+
+************************************************************************************;
 
 *proc import for csv;
 %macro import_csv(dataset,folder,filename);
@@ -22,7 +24,6 @@
 ************************************************************************************;
 
 *Infile sample;
-
 %macro get_muni_trade_leg_swap(dataset,folder,filename);
    data &dataset.;
       %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
