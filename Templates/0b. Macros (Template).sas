@@ -39,7 +39,7 @@
    %let dsid = %sysfunc(open(&ds.));
    %if &dsid %then
       %do;
-         options NOMLOGIC NOSYMBOLGEN NOMLOGIC NOMPRINT;
+         options NOMLOGIC NOSYMBOLGEN NOMPRINT;
          %let nobs =%sysfunc(attrn(&dsid,NOBS));
          %let nvars=%sysfunc(attrn(&dsid,NVARS));
          %let rc = %sysfunc(close(&dsid));
@@ -51,7 +51,7 @@
       %end;
    %else
       %put Open for data set &dset failed - %sysfunc(sysmsg());
-   options MLOGIC SYMBOLGEN NOMLOGIC NOMPRINT;
+   options MLOGIC SYMBOLGEN MPRINT;
    
 %mend obsnvars;
 
