@@ -1,3 +1,11 @@
+/*
+Updates to make:
+   Update with default values.
+   Add TERMSTR = CRLF to infile statement as option to deal with carriage returns.
+   Add option to deal with special characters in infile statement (see SSL-Shoma import code).
+   Update to work with .xlsx.
+*/
+
 *proc import for xlsx;
 %macro import_xlsx(dataset,folder,filename,sheet);
    proc import
@@ -51,3 +59,5 @@
       if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
    run;
 %mend;
+
+***********************************END*************************************************;

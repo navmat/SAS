@@ -1,3 +1,13 @@
+/*
+Updates to make:
+   Update with default values.
+   Add argument for import directory / Reminder that import directory should be named "&importdir."
+   Comment out test in second macro to see if file exists.
+   Add TERMSTR = CRLF to infile statement as option to deal with carriage returns.
+   Add option to deal with special characters in infile statement (see SSL-Shoma import code).
+   Update to work with .xlsx.
+*/
+
 ***************************************************************************************;
 *** Defining macro to get import headers from .csv files.                           ***;
 ***************************************************************************************;
@@ -33,7 +43,7 @@
    run;
 
    proc export data= temp
-      outfile= "&exportdir.\Import Headers (Temp).xls" replace dbms= excelcs;
+      outfile= "&exportdir.\Import Headers (Temp).xls" replace;
       sheet= &out_sheetname.;
    run;
 
