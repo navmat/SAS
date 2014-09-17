@@ -63,7 +63,7 @@ Updates to make:
    %if ^%sysfunc(exist(temp_&in_sheetname.)) %then
    %do;
       %*Importing import header file;
-      proc import out= temp_&in_sheetname. dbms= excelcs replace
+      proc import out= temp_&in_sheetname. replace
          datafile= "&importdir.\Import Headers.xls" ;   
          sheet= &in_sheetname.; scantext= yes; usedate= yes; scantime= yes ;
       run;
