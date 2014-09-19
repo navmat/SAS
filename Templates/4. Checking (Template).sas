@@ -2,8 +2,8 @@
 dm 'output' clear;
 dm 'log' clear;
 
-proc datasets lib=work nolist nowarn kill; run; quit;
-
+proc datasets lib=work nolist nowarn kill; run; quit; libname _all_ clear;
+   
 ***********************************HEADER**********************************************;
 %include "[Complete header file path]";
 
