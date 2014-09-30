@@ -2,8 +2,7 @@
 %macro export_xlsx(dataset, outfile, sheet);
    proc export 
       data= &dataset
-      outfile= "&exportdir.\&outfile..xls" replace
-      dbms= excelcs;
+      outfile= "&exportdir.\&outfile..xlsx" replace;
       sheet= "&sheet";
    run;
 %mend;

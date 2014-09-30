@@ -3,7 +3,7 @@
 
 *Print to log the SAS code to define the base dataset for a proc appened;
 %macro get_append_base(base_dataset);
-   proc contents data= &base_dataset. out= local_temp; run;
+   proc contents noprint data= &base_dataset. out= local_temp; run;
    
    proc sort data= local_temp; by varnum; run;
 
