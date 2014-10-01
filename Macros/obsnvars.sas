@@ -18,11 +18,11 @@ Updates to make:
          %let nobs =%sysfunc(attrn(&dsid,NOBS));
          %let nvars=%sysfunc(attrn(&dsid,NVARS));
          %let rc = %sysfunc(close(&dsid));
-         %put ***************************************************************************************;
+         %put *******************************************************************************;
          %put;
          %put &dset has &nvars  variable(s) and &nobs observation(s).;
          %put;
-         %put ***************************************************************************************;
+         %put *******************************************************************************;
       %end;
    %else
       %put Open for data set &dset failed - %sysfunc(sysmsg());

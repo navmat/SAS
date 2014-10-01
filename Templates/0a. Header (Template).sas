@@ -1,16 +1,16 @@
-***********************************ROOT************************************************;
-%let sasroot= ["SAS root file path"];
+/*********************************ROOT*****************************************/
+%let sasroot= ['SAS ROOT FILE PATH'];
 
-***********************************OPTIONS*********************************************;
+/*********************************OPTIONS**************************************/
 options noquotelenmax mprint center compress=yes mlogic symbolgen notes source
 sortequals source2 nonumber nodate yearcutoff=1920 linesize=155 pagesize=65 msglevel=i
 reuse=yes obs=max pageno=1 nobyline nolabel merror ovp mautosource mrecall nofmterr;
 
-***********************************LIBRARIES*******************************************;
+/*********************************LIBRARIES************************************/
 *SAS datasets;
 libname sasdata "&sasroot.\Datasets";
 
-***********************************MACRO VARIABLES*************************************;
+/*********************************MACRO VARIABLES******************************/
 **Folders**;
 *Import directory;
 %let importdir= &sasroot.\Input;
@@ -18,15 +18,11 @@ libname sasdata "&sasroot.\Datasets";
 %let exportdir= &sasroot.\Output;
 
 **Files**;
-%let file_name= &sasroot.["File path"];
+%let file_name= &sasroot.['FILE PATH'];
 
-**SAS Code**;
-%let import_code= &sasroot.["Import code file path"];
-%let export_code= &sasroot.["Export code file path"];
+/*********************************MACROS***************************************/
+%include "&sasroot.['MACRO CODE FILE PATH']";
 
-***********************************MACROS**********************************************;
-%include "&sasroot.[Macro code file path]";
-
-***********************************END*************************************************;
+/*********************************END******************************************/
 *dm 'log' clear;
 

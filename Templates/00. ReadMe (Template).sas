@@ -1,24 +1,25 @@
-/**************************************************************************************;
+/*******************************************************************************
 
-Created by:   Kevin Fong
-Date:         xxxx.xx.xx
+   Created by:   Kevin Fong
+  
+   Date:         xxxx.xx.xx
 
-Last Updated by [INSERT UPDATER] on xxxx.xx.xx
+   Last Updated by [INSERT UPDATER] on xxxx.xx.xx
 
-Checked by:   [INSERT CHECKER]
-Date:         xxxx.xx.xx
-Check Code:   [INSERT FOLDER PATH]
+   Checked by:   [INSERT CHECKER]
+   Date:         xxxx.xx.xx
+   Check Code:   [INSERT FOLDER PATH]
 
-Description:  
+   Description:  
    [INSERT DESCRIPTION]
 
-Source: 
-   [SOURCE]
-
-Notes:
-   1. [NOTES]
-
-***************************************************************************************;
+   Source: 
+      [SOURCE]
+  
+   Notes:
+      1. [NOTES]
+    
+********************************************************************************
 
 Overview of SAS system options used in header file:
     LABEL | NOLABEL      Specifies whether SAS procedures can use labels with variables.
@@ -30,8 +31,8 @@ Overview of SAS system options used in header file:
 SYMBOLGEN | NOSYMBOLGEN  Specifies whether the results of resolving macro variable references are written to the SAS log for debugging.
 
 Other useful options:
-STIMER    | NOSTIMER     Writes real-time and CPU time to the SAS log.
-FULLSTIMER| NOFULLSTIMER Specifies that SAS write to the SAS log a complete list of computer resources that were used for each step and for the entire SAS session.
+    STIMER | NOSTIMER Writes real-time and CPU time to the SAS log.
+FULLSTIMER | NOFULLSTIMER Specifies that SAS write to the SAS log a complete list of computer resources that were used for each step and for the entire SAS session.
 
 MSGLEVEL = N | MSGLEVEL = I
 N - Specifies to print notes, warnings, CEDA message, and error messages only. N is the default.
@@ -45,4 +46,4 @@ Useful grouping of options:
    Notes and timer,
       option notes fullstimer stimer;
       
-***************************************************************************************/
+*******************************************************************************/
