@@ -7,6 +7,8 @@
     next "viewtable:"; end; 
   %end; 
 %mend;
-dm "keydef F12 '%NRSTR(%closevts);";
+
+* Assigns macro to F12. Move to header file and comment out if compiling from autocall file.
+/* dm "keydef F12 '%NRSTR(%closevts);"; */ 
 
 ***********************************END*************************************************;

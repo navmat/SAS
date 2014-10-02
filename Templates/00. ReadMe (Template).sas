@@ -1,17 +1,15 @@
 /*******************************************************************************
 
-   Created by:   Kevin Fong
-  
-   Date:         xxxx.xx.xx
+   Author:      Kevin Fong
+   Date:        xxxx.xx.xx
+   Updated:     xxxx.xx.xx by [INSERT UPDATER]
 
-   Last Updated by [INSERT UPDATER] on xxxx.xx.xx
-
-   Checked by:   [INSERT CHECKER]
-   Date:         xxxx.xx.xx
-   Check Code:   [INSERT FOLDER PATH]
+   Checker:     [INSERT CHECKER]
+   Date:        xxxx.xx.xx
+   Check Code:  [INSERT FOLDER PATH]
 
    Description:  
-   [INSERT DESCRIPTION]
+      [INSERT DESCRIPTION]
 
    Source: 
       [SOURCE]
@@ -19,8 +17,7 @@
    Notes:
       1. [NOTES]
     
-********************************************************************************
-
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 Overview of SAS system options used in header file:
     LABEL | NOLABEL      Specifies whether SAS procedures can use labels with variables.
    MLOGIC | NOMLOGIC     Specifies whether the macro processor traces its execution for debugging.
@@ -46,4 +43,4 @@ Useful grouping of options:
    Notes and timer,
       option notes fullstimer stimer;
       
-*******************************************************************************/
+/*********************************END******************************************/

@@ -16,14 +16,15 @@
    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
    Date        Author  Comments
    ¯¯¯¯¯¯¯¯¯¯  ¯¯¯¯¯¯  ¯¯¯¯¯¯¯¯
-   2014.09.30  KF      1. Added default values for parameters.
-                       2. Add argument for import directory.
-                       3. Comment out condition in second macro to see if file exists.
-                       4. Updated to work with SAS 9.4 / .xlsx files.
-                       5. Added infile options that are useful for dealing with
+   2014.09.30  KF       1. Added default values for parameters.
+                        2. Add argument for import directory.
+                        3. Comment out condition in second macro to see if file exists.
+                        4. Updated to work with SAS 9.4 / .xlsx files.
+                        5. Added infile options that are useful for dealing with
                           special characters and carriage returns.
                            a. IgnoreDOSeof
                            b. TERMSTR = CRLF 
+                        6. Add error messages.
 
    YYYY-MM-DD  III     Please use this format and insert new entries above
    
@@ -32,10 +33,10 @@
 /*******************************************************************************
  Defining macro to get import headers from .csv files.
 *******************************************************************************/
-%macro TempInfile(dir, filename, out_sheetname);
+%macro TempInfile(datadir=, filename=, out_sheetname=);
 
    proc import out= temp replace
-      datafile= "&&&dir.\&filename..csv";
+      datafile= "&&&datadir.\&filename..csv";
    run;
 
    proc contents noprint out= temp data= temp;
@@ -73,12 +74,12 @@
    
 %mend TempInfile;
 
-%for_infile(dir, filename, out_sheetname);
+%TempInfile(datadir= , filename= , out_sheetname= );
 
 /*******************************************************************************
  Defining macro to get import headers from .xls and infile data.
 *******************************************************************************/
-%macro AutoInfile(dir, filename, in_sheetname, out_dataset);
+%macro AutoInfile(datadir=, filename=, in_sheetname=, out_dataset=);
 
    %* Condition to see if header has already been imported;
    %if ^%sysfunc(exist(temp_&in_sheetname.)) %then
@@ -116,7 +117,7 @@
    %*Infile statement;
    data &out_dataset.;
       %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
-      infile "&&&dir.\&filename..csv" delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2;
+      infile "&&&datadir.\&filename..csv" delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2;
 
       informat &varInformat;
       format   &varFormat;
@@ -129,6 +130,6 @@
 
 %mend AutoInfile;
 
-%get_Infile(dir, filename, in_sheetname, out_dataset) ;
+%AutoInfile(datadir= , filename= , in_sheetname= , out_dataset= ) ;
 
 /*********************************END******************************************/

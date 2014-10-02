@@ -1,28 +1,29 @@
 /*********************************ROOT*****************************************/
-%let sasroot= ['SAS ROOT FILE PATH'];
+%let sasroot= ['SAS ROOT FILE PATH'] ;
 
 /*********************************OPTIONS**************************************/
 options noquotelenmax mprint center compress=yes mlogic symbolgen notes source
 sortequals source2 nonumber nodate yearcutoff=1920 linesize=155 pagesize=65 msglevel=i
-reuse=yes obs=max pageno=1 nobyline nolabel merror ovp mautosource mrecall nofmterr;
+reuse=yes obs=max pageno=1 nobyline nolabel merror ovp mautosource mrecall nofmterr ;
 
 /*********************************LIBRARIES************************************/
 *SAS datasets;
-libname sasdata "&sasroot.\Datasets";
+libname sasdata "&sasroot.\Datasets" ;
 
 /*********************************MACRO VARIABLES******************************/
 **Folders**;
 *Import directory;
-%let importdir= &sasroot.\Input;
+%let importdir= &sasroot.\Input ;
 *Export directory;
-%let exportdir= &sasroot.\Output;
+%let exportdir= &sasroot.\Output ;
 
 **Files**;
-%let file_name= &sasroot.['FILE PATH'];
+%let file= &sasroot.['FILE PATH'] ;
 
 /*********************************MACROS***************************************/
-%include "&sasroot.['MACRO CODE FILE PATH']";
+filename macros "&sasroot.['MACRO AUTOCALL FOLDER PATH']" ;
+options sasautos= (macros) ;
+dm "keydef F12 '%NRSTR(%closevts);";
 
 /*********************************END******************************************/
 *dm 'log' clear;
-
