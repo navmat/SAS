@@ -21,8 +21,7 @@ libname sasdata "&sasroot.\Datasets" ;
 %let file= &sasroot.['FILE PATH'] ;
 
 /*********************************MACROS***************************************/
-filename macros "&sasroot.['MACRO AUTOCALL FOLDER PATH']" ;
-options sasautos= (macros sasautos) ;
+options sasautos= ("&sasroot.['MACRO AUTOCALL FOLDER PATH']" sasautos) ;
 dm "keydef F12 '%NRSTR(%closevts);";
 
 /*********************************END******************************************/

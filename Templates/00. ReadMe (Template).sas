@@ -1,11 +1,11 @@
 /*******************************************************************************
 
    Author:      Kevin Fong
-   Date:        xxxx.xx.xx
-   Updated:     xxxx.xx.xx by [INSERT UPDATER]
+   Date:        YYYY.MM.DD
+   Updated:     YYYY.MM.DD by [INSERT UPDATER]
 
    Checker:     [INSERT CHECKER]
-   Date:        xxxx.xx.xx
+   Date:        YYYY.MM.DD
    Check Code:  [INSERT FOLDER PATH]
 
    Description:  

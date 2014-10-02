@@ -2,7 +2,7 @@
 
    Name:       [MACRO NAME]
    Author:     [AUTHOR]
-   Created:    xxxx.xx.xx
+   Created:    YYYY.MM.DD
 
    Purpose:    [PURPOSE]
 
@@ -17,7 +17,7 @@
    ¯¯¯¯¯¯¯¯¯¯  ¯¯¯¯¯¯  ¯¯¯¯¯¯¯¯
    YYYY.MM.DD  III      [INSERT COMMENTS]
 
-   YYYY-MM-DD  III     Please use this format and insert new entries above
+   YYYY.MM.DD  III     Please use this format and insert new entries above
    
 *******************************END MACRO HEADER********************************/
 
