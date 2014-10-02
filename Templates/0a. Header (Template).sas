@@ -22,7 +22,7 @@ libname sasdata "&sasroot.\Datasets" ;
 
 /*********************************MACROS***************************************/
 filename macros "&sasroot.['MACRO AUTOCALL FOLDER PATH']" ;
-options sasautos= (macros) ;
+options sasautos= (macros sasautos) ;
 dm "keydef F12 '%NRSTR(%closevts);";
 
 /*********************************END******************************************/
