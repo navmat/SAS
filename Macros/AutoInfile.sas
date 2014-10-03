@@ -1,98 +1,63 @@
-/******************************BEGIN MACRO HEADER*******************************
+/***************************BEGIN MACRO HEADER**********************************
 
-   Name:       TempInfile & AutoInfile
+   Name:       AutoInfile
    Author:     Kevin Fong
-   Created:    2014.07.05
+   Created:    2014.10.02
 
-   Purpose:    Automate infile statements and facilitate data management.
+   Purpose:    Automate infile statements and facilitate data management.  This
+               macro writes an infile statement based on headers in a xlsx.
+               Can be used in conjunction with the AutoInfileTemp macro.
 
-   Arguments:  
-               TempInfile
-                  ref - one or more filerefs to add to the option
-               AutoInfile
-                  ref - one or more filerefs to add to the option
+   Arguments:  importdir   - Directory where .xlsx with headers lives. 
+                             Default is importdir.
+               datadir     - Directory where raw data lives.
+               filename    - Name of input file.  Include file extension.
+               in_sheet    - Sheet in xlsx. file to use as infile header.
+               out_dataset - Name of output dataset.
+
+   Note:       All arguments are required.  Datadir and importdir must be macro
+               variables.  If the same header can be applied to multiple input
+               files, comment out the last line in the macro, which deletes the
+               temp datasets created by the macro.
+
+               TERMSTR= CRLF and IgnoreDOSeof are useufl options for dealing
+               with unwanted carriage returns and sepcial characters.
 
    Revisions
    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
    Date        Author  Comments
    ¯¯¯¯¯¯¯¯¯¯  ¯¯¯¯¯¯  ¯¯¯¯¯¯¯¯
-   2014.09.30  KF       1. Added default values for parameters.
-                        2. Add argument for import directory.
-                        3. Comment out condition in second macro to see if file exists.
-                        4. Updated to work with SAS 9.4 / .xlsx files.
-                        5. Added infile options that are useful for dealing with
-                          special characters and carriage returns.
-                           a. IgnoreDOSeof
-                           b. TERMSTR = CRLF 
-                        6. Add error messages.
+   YYYY.MM.DD  III     Please use this format and insert new entries above
 
-   YYYY-MM-DD  III     Please use this format and insert new entries above
+******************************END MACRO HEADER*********************************/
+
+/*********************************MACRO****************************************/
+
+%macro AutoInfile(importdir= importdir, datadir=, filename=, in_sheet=, out_dataset=);
    
-*******************************END MACRO HEADER********************************/
+   %* Check that header file exists.;  
+   %if ^%sysfunc(fileexist(&&&importdir.\Import Headers.xlsx)) %then %do ;
+        %put %str(E)RROR: The external file &&&importdir.\Import Headers.xlsx does not exist. ;
+        %return;
+   %end;
 
-/*******************************************************************************
- Defining macro to get import headers from .csv files.
-*******************************************************************************/
-%macro TempInfile(datadir=, filename=, out_sheetname=);
-
-   proc import out= temp replace
-      datafile= "&&&datadir.\&filename..csv";
-   run;
-
-   proc contents noprint out= temp data= temp;
-   run;
-
-   proc sort data= temp; by VARNUM;
-   run;
-
-   data temp
-      (keep= Var_Order Var_Name Var_Type Var_Informat Var_Format Notes);
-      retain VARNUM NAME type2 Var_Informat Var_Format;
-      set temp;
-      var_format= compress(format||formatl)||'.';
-      var_informat= compress(informat||INFORML)||'.';
-
-      %*Determining variable type;
-      if informat= '$' then type2= 'Character';
-      else if informat= 'BEST' then type2= 'Number';
-      else type2= 'Date';
-
-      rename varnum= Var_Order; rename name= Var_Name; rename type2= Var_Type;
-
-      %*Generating warning message if format length equals zero;
-      if FORMATL= 0 then Notes= 'Warning: Format length is 0';
-      else Notes= ' ';
-   run;
-
-   proc export data= temp
-      outfile= "&exportdir.\Import Headers (Temp).xls" replace;
-      sheet= &out_sheetname.;
-   run;
-
-   %*Deleting temp dataset created by macro;
-   %delete_dataset(work,temp);
-   
-%mend TempInfile;
-
-%TempInfile(datadir= , filename= , out_sheetname= );
-
-/*******************************************************************************
- Defining macro to get import headers from .xls and infile data.
-*******************************************************************************/
-%macro AutoInfile(datadir=, filename=, in_sheetname=, out_dataset=);
+   %* Check that input file exists.;  
+   %if ^%sysfunc(fileexist(&&&datadir.\&filename.)) %then %do ;
+        %put %str(E)RROR: The external file &&&datadir.\&filename. does not exist. ;
+        %return;
+   %end;
 
    %* Condition to see if header has already been imported;
-   %if ^%sysfunc(exist(temp_&in_sheetname.)) %then
-   %do;
+   %if ^%sysfunc(exist(temp_&in_sheet.)) %then %do;
       %*Importing import header file;
-      proc import out= temp_&in_sheetname. replace
-         datafile= "&importdir.\Import Headers.xls" ;   
-         sheet= &in_sheetname.; scantext= yes; usedate= yes; scantime= yes ;
+      proc import out= temp_&in_sheet. replace
+         datafile= "&&&importdir.\Import Headers.xlsx" ;   
+         sheet= &in_sheet.; scantext= yes; usedate= yes; scantime= yes ;
       run;
       %*Defining inputFMT for input portion of infile;
-      data temp_&in_sheetname.;
+      data temp_&in_sheet.;
          format inputFMT $1.;
-         set temp_&in_sheetname.;
+         set temp_&in_sheet.;
          if var_type= :'Ch' then inputFMT='$';
          else inputFMT=' ';
       run;
@@ -102,22 +67,22 @@
    proc sql noprint;
       select compress(var_name)||' '||compress(inputFMT)
          into :varName separated by ' '
-         from temp_&in_sheetname.
+         from temp_&in_sheet.
       ;
       select compress(var_name)||' '||compress(var_Informat)
          into :varInformat separated by ' '
-         from temp_&in_sheetname.
+         from temp_&in_sheet.
       ;
       select compress(var_name)||' '||compress(var_Format)
          into :varFormat separated by ' '
-         from temp_&in_sheetname.
+         from temp_&in_sheet.
       ;
    quit;
 
    %*Infile statement;
    data &out_dataset.;
       %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
-      infile "&&&datadir.\&filename..csv" delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2;
+      infile "&&&datadir.\&filename." delimiter = ',' MISSOVER DSD lrecl=32767 firstobs=2;
 
       informat &varInformat;
       format   &varFormat;
@@ -125,11 +90,10 @@
 
       if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
    run;
+
    %* Deleting temp datasets created by macro;
    %delete_dataset(work,temp:); /* Comment this line out if importing multiple files with the same header */
 
 %mend AutoInfile;
-
-%AutoInfile(datadir= , filename= , in_sheetname= , out_dataset= ) ;
 
 /*********************************END******************************************/

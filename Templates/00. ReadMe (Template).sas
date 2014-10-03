@@ -1,21 +1,18 @@
 /*******************************************************************************
 
-   Author:      Kevin Fong
-   Date:        YYYY.MM.DD
-   Updated:     YYYY.MM.DD by [INSERT UPDATER]
+   Author:    Kevin Fong
+   Date:      YYYY.MM.DD
+   Updated:   YYYY.MM.DD by [INSERT UPDATER]
 
-   Checker:     [INSERT CHECKER]
-   Date:        YYYY.MM.DD
-   Check Code:  [INSERT FOLDER PATH]
+   Checker:   [INSERT CHECKER]
+   Date:      YYYY.MM.DD
+   Location:  [INSERT FOLDER PATH]
 
-   Description:  
-      [INSERT DESCRIPTION]
+   Purpose:   [INSERT PURPOSE]
 
-   Source: 
-      [SOURCE]
+   Source:    [SOURCE]
   
-   Notes:
-      1. [NOTES]
+   Note:      [NOTES]
     
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 Overview of SAS system options used in header file:

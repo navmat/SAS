@@ -37,7 +37,7 @@
       END MACRO HEADER
      ********************************************************************************/
 
-    %let help=%upcase(&help);
+    %let help=%upcase(&help.);
     %if &help ne N %then %do;
 
         %put NOTE: Help for CONVERT Macro Program;
